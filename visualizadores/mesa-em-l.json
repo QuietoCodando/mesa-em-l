@@ -1,0 +1,76 @@
+{
+  "slug": "mesa-em-l",
+  "template": "site/mesa-em-l-cliente-v3-2-dev-2026-10-28.html",
+  "saida": "site/mesa-em-l-cliente.html",
+  "titulo": "Mesa em L — proposta CaosTF",
+  "descricao": "Mesa em L sob medida — proposta CaosTF. Ajuste medidas, furos e acabamento e veja o valor de referência.",
+  "og_descricao": "Mesa em L sob medida: 3D, medidas, furos de cabo, acabamento e valor de referência.",
+  "public_base": "https://quietocodando.github.io/mesa-em-l/",
+  "og_url": "https://quietocodando.github.io/mesa-em-l/",
+  "og_image": "https://quietocodando.github.io/mesa-em-l/og-mesa-em-l.jpg",
+  "defaults": {
+    "L1": 1500,
+    "L2": 2100,
+    "P": 900,
+    "P2": 900,
+    "H": 750,
+    "side": "right"
+  },
+  "publico": true,
+  "orcamento": {
+    "schema": "orcamento-cliente/1",
+    "projeto": "mesa-em-l",
+    "modelo": "Mesa em L executiva — base de ferro",
+    "cliente": "Ygor",
+    "data": "2026-10-23",
+    "validade_dias": 7,
+    "prazo_dias_uteis": 15,
+    "auditado_financeiro": false,
+    "medidas": {
+      "L1": 1500,
+      "L2": 2100,
+      "P1": 900,
+      "P2": 900,
+      "H": 750,
+      "T": 18
+    },
+    "opcoes": [
+      {
+        "id": "A",
+        "rotulo": "Ferro + pinus 18 mm",
+        "preco": 6060.26,
+        "sinal_pix": 3030.13,
+        "sinal_cartao": 3140.03,
+        "cartao": 6280.06,
+        "espessura_mm": 18,
+        "peso_kg": 80,
+        "resumo": "estrutura soldada + base de reforço (4 barras de 6 m)"
+      }
+    ],
+    "inclui": [
+      "estrutura de ferro 40×40×2 com 6 pernas e base de reforço (5 peças; 4 barras de 6 m)",
+      "2 tampos de pinus 18 mm",
+      "2 furos Ø60 para passagem de cabos",
+      "fixação que acompanha o movimento da madeira",
+      "acabamento com óleo — pinus, imbuia ou mogno"
+    ],
+    "nao_inclui": [
+      "entrega e frete",
+      "montagem/instalação no local",
+      "cadeiras e gaveteiro (fase 2)",
+      "acabamento especial (laca ou pintura colorida)"
+    ],
+    "condicoes": {
+      "sinal_pct": 50,
+      "saldo": "50% na entrega",
+      "pix": "sem acréscimo",
+      "cartao_divisor": 0.965,
+      "entrega": "não inclusa (R$ 300 a R$ 600 conforme endereço e andar)",
+      "instalacao": "não inclusa (R$ 300 a R$ 600)",
+      "garantia_dias": 90,
+      "validade_dias": 7,
+      "prazo_dias_uteis": 15
+    },
+    "clausula_sinal": "O sinal de 50% garante a compra da madeira e o início da produção. Antes do corte da madeira, ele é devolvido integralmente se a compra não seguir. Depois do corte, não é reembolsável, porque a chapa já foi comprometida no seu projeto."
+  }
+}

@@ -1,6 +1,6 @@
 # Mesa em L — vista de cliente (CaosTF)
 
-> **Status:** repo canônico criado em 03/11/2026 · versão **3.3.1** (ver `VERSION`)
+> **Status:** repo canônico criado em 03/11/2026 · versão **3.3.2** (ver `VERSION`)
 > **Dono:** Murilo ([@QuietoCodando](https://github.com/QuietoCodando))
 > **Sócios com escrita:** Lucas ([@birigjow](https://github.com/birigjow)) e Ygor ([@Paspalho-create](https://github.com/Paspalho-create))
 > **Regra da casa:** toda alteração passa por **PR + 1 aprovação de outra pessoa** — ver `CONTRIBUTING.md`.
@@ -11,7 +11,7 @@ O cliente abre o link, ajusta medidas/furos/acabamento e vê o valor de referên
 ## Estrutura
 
 ```
-site/mesa-em-l-cliente.html                     página final do cliente (v3.3.1)
+site/mesa-em-l-cliente.html                     página final do cliente (v3.3.2)
 site/mesa-em-l-cliente-v3-2-dev-2026-10-28.html  template-fonte da v3.3.0 (não editar sem o gerador)
 site/mesa-em-l-cliente-2026-10-26.html          final anterior (histórico)
 site/mesa-em-l-cliente-v3-2.html                v3.2 (histórico)
@@ -22,7 +22,8 @@ site/index.html                                 redireciona para o modo cliente
 site/p/<cliente>/index.html                     link fixo da proposta do cliente
 site/logo.jpg · og-mesa-em-l.jpg                marca e cartão de prévia
 tools/make-og.py                                gerador do cartão de prévia
-visualizadores/                                 config do gerador (chega do repo do Ygor)
+tools/gerar-visualizador.mjs                   gerador da página (config + template; `--check`)
+visualizadores/mesa-em-l.json                  config público (sem custo interno; `publico: true`)
 ```
 
 ## Como está versionado

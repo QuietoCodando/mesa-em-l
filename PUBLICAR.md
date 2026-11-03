@@ -12,7 +12,7 @@ gh api -X POST repos/QuietoCodando/mesa-em-l/pages -f "build_type=workflow"
 O workflow `.github/workflows/pages.yml` publica a pasta `site/` na URL:
 `https://quietocodando.github.io/mesa-em-l/`
 
-> Ainda **não** existe o workflow no repo — ele entra no PR de publicação junto com o OK do dono.
+> O workflow `.github/workflows/pages.yml` existe desde a v3.3.1. Ainda assim, **ligar o Pages é gate do dono** — não rode o comando acima sem o OK do Murilo.
 
 ## 2. Conferir o artefato
 
@@ -21,7 +21,7 @@ $h = (Get-FileHash site/mesa-em-l-cliente.html -Algorithm SHA256).Hash
 "$h | $((Get-Item site/mesa-em-l-cliente.html).Length) b"
 ```
 
-Tem que bater com o `CHANGELOG.md` (`0657BAE5…` / 206.648 b na v3.3.1).
+Tem que bater com o `CHANGELOG.md` (`44B3DB80…` / 206.521 b na v3.3.2; a v3.3.1 era `0657BAE5…` / 206.648 b).
 
 ## 3. Domínio próprio (opcional, decisão do dono + infra)
 
