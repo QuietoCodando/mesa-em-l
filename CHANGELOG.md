@@ -2,6 +2,18 @@
 
 Formato: [SemVer](https://semver.org/lang/pt-BR/). Cada release registra bytes e SHA256 do `site/mesa-em-l-cliente.html`.
 
+## [3.3.2] — 2026-11-03 (PR, não publicada)
+
+**Tira o custo interno do JSON público + versiona o gerador.** A v3.3.1 levou para o repo público o bloco `#orcamento-cliente` com `estrutura`, `tampos`, `acabamento`, `material` e `mao_obra` — números internos que o próprio README diz que não entram aqui. Esta versão remove esses cinco campos da opção A, mantém todo o resto da página igual e passa a gerar o HTML pelo config.
+
+- **Arquivo:** `site/mesa-em-l-cliente.html`
+- **Bytes:** 206.521
+- **SHA256:** `44B3DB80891DFA0EC89BA034CCD585012C97AD121CE0B9E4F18C0ED0EEDE87A6`
+- **Mudança:** 5 campos de custo removidos do JSON (`estrutura`, `tampos`, `acabamento`, `material`, `mao_obra`); −127 b. Nenhum texto, 3D, medida, preço ou condição mudou.
+- **Entrou:** `tools/gerar-visualizador.mjs`, `visualizadores/mesa-em-l.json` (config público, `publico: true`) e `test/gerar-visualizador.test.mjs`.
+- **Prova:** o gerador reproduz a v3.3.1 **byte a byte** (206.648 b / `0657BAE5…`) quando usa o JSON cheio; o `--check` passa na v3.3.2; o diff do HTML é só a remoção dos 5 campos.
+- **Pendente:** 1 aprovação de outra pessoa (regra dos 2) + gate do dono para publicar.
+
 ## [3.3.1] — 2026-11-03 (publicada)
 
 **Correção de base para publicação no repo canônico.** A v3.3.0 foi congelada com `PUBLIC_BASE` apontando para o Pages antigo (`birigjow.github.io/mesa-em-l/`); ao publicar em `quietocodando.github.io/mesa-em-l/`, o botão “Copiar link do cliente” geraria links para o build velho. Esta versão troca a base em `mesa-em-l-cliente.html`, `index.html`, `p/ygor/` e `p/ygor-preco/`.

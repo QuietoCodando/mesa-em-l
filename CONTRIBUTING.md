@@ -47,7 +47,8 @@ git pull
 - [ ] o preço e o selo não mudaram sem parecer do financeiro;
 - [ ] as medidas/dados técnicos não mudaram sem o marceneiro;
 - [ ] o hash no CHANGELOG é o hash do arquivo do commit;
-- [ ] nada de custo/margem/JORNADA entrou no repo público;
+- [ ] `node tools/gerar-visualizador.mjs --config visualizadores/mesa-em-l.json --check` passa;
+- [ ] nada de custo/margem/JORNADA entrou no repo público (o config usa `publico: true`);
 - [ ] o preset de cliente não expõe dado de outro cliente.
 
 ## 5. Quem é quem
