@@ -1,0 +1,17 @@
+# GitHub — dono por área (a regra dos 2 está no CONTRIBUTING.md)
+# Qualquer um dos listados pode aprovar; o autor do PR não conta como aprovador.
+*                                   @QuietoCodando @birigjow @Paspalho-create
+
+# Página final do cliente e links fixos: Murilo + Lucas
+/site/mesa-em-l-cliente.html        @QuietoCodando @birigjow
+/site/p/                            @QuietoCodando @birigjow
+
+# Template, gerador e config: Ygor + Murilo
+/site/mesa-em-l-cliente-v3-2-dev-2026-10-28.html  @Paspalho-create @QuietoCodando
+/tools/                             @Paspalho-create @QuietoCodando
+/visualizadores/                    @Paspalho-create @QuietoCodando
+
+# Configurador do dono, versão e changelog: só Murilo aprova
+/site/mesa-em-l-ferro.html          @QuietoCodando
+/VERSION                            @QuietoCodando
+/CHANGELOG.md                       @QuietoCodando

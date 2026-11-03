@@ -1,0 +1,3 @@
+User-agent: *
+# links personalizados de cliente: não indexar
+Disallow: /p/
