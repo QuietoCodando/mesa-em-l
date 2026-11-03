@@ -2,6 +2,17 @@
 
 Formato: [SemVer](https://semver.org/lang/pt-BR/). Cada release registra bytes e SHA256 do `site/mesa-em-l-cliente.html`.
 
+## [3.3.1] — 2026-11-03 (publicada)
+
+**Correção de base para publicação no repo canônico.** A v3.3.0 foi congelada com `PUBLIC_BASE` apontando para o Pages antigo (`birigjow.github.io/mesa-em-l/`); ao publicar em `quietocodando.github.io/mesa-em-l/`, o botão “Copiar link do cliente” geraria links para o build velho. Esta versão troca a base em `mesa-em-l-cliente.html`, `index.html`, `p/ygor/` e `p/ygor-preco/`.
+
+- **Arquivo:** `site/mesa-em-l-cliente.html`
+- **Bytes:** 206.648
+- **SHA256:** `0657BAE53A328C0B6374EA8BCF0A7260CEDCE9A6AEB73BA24CD37A24C3846F1D`
+- **Mudança:** 3 ocorrências de `https://birigjow.github.io/mesa-em-l/` → `https://quietocodando.github.io/mesa-em-l/` (+15 b).
+- **Não mudou:** conteúdo visual, 3D, medidas, preço (18 = R$ 6.060,26 + selo; 30 = a confirmar).
+- **Publicada em:** `https://quietocodando.github.io/mesa-em-l/` (03/11).
+
 ## [3.3.0] — 2026-11-03 (congelada, não publicada)
 
 **Origem:** cópia de trabalho `mesa-em-l-cliente-v3-2-dev-2026-10-28.html`, aprovada pelo `design` para a caixa de boas-vindas e o guia de orçamento (re-ok 28/10, tutorial C).

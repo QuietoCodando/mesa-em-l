@@ -21,7 +21,7 @@ $h = (Get-FileHash site/mesa-em-l-cliente.html -Algorithm SHA256).Hash
 "$h | $((Get-Item site/mesa-em-l-cliente.html).Length) b"
 ```
 
-Tem que bater com o `CHANGELOG.md` (`1FF68578…` / 206.633 b na v3.3.0).
+Tem que bater com o `CHANGELOG.md` (`0657BAE5…` / 206.648 b na v3.3.1).
 
 ## 3. Domínio próprio (opcional, decisão do dono + infra)
 
