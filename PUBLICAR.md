@@ -13,6 +13,8 @@ O workflow `.github/workflows/pages.yml` publica a pasta `site/` na URL:
 `https://quietocodando.github.io/mesa-em-l/`
 
 > O workflow `.github/workflows/pages.yml` existe desde a v3.3.1. Ainda assim, **ligar o Pages é gate do dono** — não rode o comando acima sem o OK do Murilo.
+>
+> **Atenção:** o workflow roda em **todo push na `main`**. Merge aprovado = **deploy automático**. Não mergear antes do parecer do `financeiro` (18/30) e do OK explícito do Murilo.
 
 ## 2. Conferir o artefato
 
