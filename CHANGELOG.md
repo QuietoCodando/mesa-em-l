@@ -7,9 +7,13 @@ Formato: [SemVer](https://semver.org/lang/pt-BR/). Cada release registra bytes e
 **Remoção do configurador interno do repo público.** O `site/mesa-em-l-ferro.html` expunha números internos de precificação (custo, margem, desconto máximo e a fórmula) — contra a regra do próprio README. Os valores não são repetidos aqui de propósito. O arquivo continua no Drive `CaosTF/10-documentacao/PROJETOS/mesa-em-l/` e no workspace local; sai só do repo público e do Pages.
 
 - **Arquivo removido:** `site/mesa-em-l-ferro.html` (172.029 b)
+- **Versões antigas fora do Pages:** `mesa-em-l-cliente-2026-10-26.html`, `-v3-2.html`, `-v3.html`, `-v2.html` saíram do repo (ficam no histórico do git)
+- **Template fora do Pages:** `mesa-em-l-cliente-v3-2-dev-2026-10-28.html` → `templates/` (só `site/` é publicado)
+- **Link de cliente sem nome:** `site/p/ygor/` → `site/p/001/`; `site/p/ygor-preco/` removido
+- **Dados de terceiros:** `tools/make-og.py` usa variáveis de ambiente (`CAOS_LOGO`, `CAOS_OG_OUT`) em vez de caminho de máquina; `visualizadores/README.md` não cita mais o nome do repo privado
 - **`.gitignore`:** passa a cobrir `.env`, `.env.*`, `*.key`, `*.pem`, `*.p12`, `*.pfx`, `secrets*`, `cookies*`, `*.log`
 - **Não mudou:** `site/mesa-em-l-cliente.html` (206.648 b / `0657BAE5...`) — a página do cliente continua igual.
-- **Pendente:** o arquivo ainda existe no histórico do git (repo público). Decisão do dono (05/11): **não** reescrever o histórico.
+- **Pendente:** o `ferro.html` ainda existe no histórico do git (repo público). Decisão do dono (05/11): **não** reescrever o histórico. A composição de preço no JSON do cliente (campos não lidos pelo código) fica para o PR do `dev`, com bump de versão.
 
 ## [3.3.1] — 2026-11-03 (publicada)
 
