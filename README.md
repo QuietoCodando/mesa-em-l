@@ -17,7 +17,6 @@ site/mesa-em-l-cliente-2026-10-26.html          final anterior (histórico)
 site/mesa-em-l-cliente-v3-2.html                v3.2 (histórico)
 site/mesa-em-l-cliente-v3.html                  v3.1 (histórico)
 site/mesa-em-l-cliente-v2.html                  v2.1 (histórico)
-site/mesa-em-l-ferro.html                       configurador completo (build do dono)
 site/index.html                                 redireciona para o modo cliente
 site/p/<cliente>/index.html                     link fixo da proposta do cliente
 site/logo.jpg · og-mesa-em-l.jpg                marca e cartão de prévia
@@ -39,6 +38,7 @@ GitHub Pages via GitHub Actions (pasta `site/`). O passo a passo, os gates e o d
 ## O que não entra neste repo
 
 - custo, margem, markup, RFQ e qualquer número interno;
+- o configurador interno (`mesa-em-l-ferro.html`) — vive só no Drive/local, nunca aqui;
 - JORNADA, atas, conversas e análise de fornecedor;
 - dados de clientes que não sejam o próprio preset público do link;
 - `.env`, tokens, `cookies.txt` ou qualquer segredo.

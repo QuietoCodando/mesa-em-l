@@ -2,6 +2,15 @@
 
 Formato: [SemVer](https://semver.org/lang/pt-BR/). Cada release registra bytes e SHA256 do `site/mesa-em-l-cliente.html`.
 
+## [Não lançado] — 2026-11-05 (segurança, sem mudança no cliente)
+
+**Remoção do configurador interno do repo público.** O `site/mesa-em-l-ferro.html` expunha números internos de precificação (custo, margem, desconto máximo e a fórmula) — contra a regra do próprio README. Os valores não são repetidos aqui de propósito. O arquivo continua no Drive `CaosTF/10-documentacao/PROJETOS/mesa-em-l/` e no workspace local; sai só do repo público e do Pages.
+
+- **Arquivo removido:** `site/mesa-em-l-ferro.html` (172.029 b)
+- **`.gitignore`:** passa a cobrir `.env`, `.env.*`, `*.key`, `*.pem`, `*.p12`, `*.pfx`, `secrets*`, `cookies*`, `*.log`
+- **Não mudou:** `site/mesa-em-l-cliente.html` (206.648 b / `0657BAE5...`) — a página do cliente continua igual.
+- **Pendente:** o arquivo ainda existe no histórico do git (repo público). Decisão do dono (05/11): **não** reescrever o histórico.
+
 ## [3.3.1] — 2026-11-03 (publicada)
 
 **Correção de base para publicação no repo canônico.** A v3.3.0 foi congelada com `PUBLIC_BASE` apontando para o Pages antigo (`birigjow.github.io/mesa-em-l/`); ao publicar em `quietocodando.github.io/mesa-em-l/`, o botão “Copiar link do cliente” geraria links para o build velho. Esta versão troca a base em `mesa-em-l-cliente.html`, `index.html`, `p/ygor/` e `p/ygor-preco/`.
