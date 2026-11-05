@@ -1,8 +1,11 @@
+import os
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 
-logo_path = Path(r"G:\.shortcut-targets-by-id\1NZMnd11tQ_REUUU5BG1I0wAMHOFsKtUx\CaosTF\30-produtos\caostf-site\public\logo.jpg")
-out = Path(r"C:\Users\lucas\workspace_maker\moveis\og-mesa-em-l.jpg")
+# Caminhos por ambiente: nada de caminho de máquina de ninguém neste repo público.
+# CAOS_LOGO = imagem da marca (padrão: site/logo.jpg) | CAOS_OG_OUT = saída (padrão: site/og-mesa-em-l.jpg)
+logo_path = Path(os.environ.get("CAOS_LOGO", "site/logo.jpg"))
+out = Path(os.environ.get("CAOS_OG_OUT", "site/og-mesa-em-l.jpg"))
 W, H = 1200, 630
 bg = (20, 19, 17)
 img = Image.new("RGB", (W, H), bg)
@@ -17,7 +20,7 @@ logo = Image.open(logo_path).convert("RGB").resize((300, 300), Image.LANCZOS)
 img.paste(logo, (80, 80))
 
 def font(name, size):
-    p = Path(r"C:\Windows\Fonts") / name
+    p = Path(os.environ.get("WINDIR", r"C:\Windows")) / "Fonts" / name
     return ImageFont.truetype(str(p), size)
 
 f_title = font("georgia.ttf", 78)
