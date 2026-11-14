@@ -7,3 +7,15 @@ Thumbs.db
 *.bak
 *.bak-*
 *.tmp
+
+# segredos — nunca versionar (repo e publico)
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+secrets*
+cookies*
+*.log
