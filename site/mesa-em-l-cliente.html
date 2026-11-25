@@ -187,10 +187,12 @@
   .orc-opt:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
   .orc-price{margin:0;font-size:33px;font-weight:650;letter-spacing:-.035em;line-height:1.02}
   .orc-price-sub{margin:4px 0 0;font-size:10px;line-height:1.45;color:var(--muted)}
-  .orc-badge{display:inline-flex;align-items:center;margin:7px 0 0;padding:2px 7px;border:1px dashed color-mix(in srgb,var(--warn) 55%,transparent);border-radius:999px;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--warn)}
+  .orc-badge{display:inline-flex;align-items:center;margin:10px 0 0;padding:2px 7px;border:1px dashed color-mix(in srgb,var(--warn) 55%,transparent);border-radius:999px;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--warn)}
   .orc-badge[hidden]{display:none}
   .orc-rows{display:grid;gap:5px;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line)}
   .orc-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:10.5px}
+.orc-pay{margin:10px 0 0;padding-top:9px;border-top:1px solid var(--line);display:grid;gap:4px}
+.orc-pay .orc-row b{font-variant-numeric:tabular-nums;color:var(--text);font-weight:600}
   .orc-row dt{margin:0;color:var(--muted)}
   .orc-row dd{margin:0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9.8px;color:var(--text);text-align:right}
   .orc-excl{margin:11px 0 0;font-size:10px;line-height:1.55;color:var(--muted)}
@@ -515,7 +517,7 @@
          + chip proposta / será refeito;
      (2) caixa de boas-vindas da vista de cliente.
      Regras: só modo cliente; não toca preço, medidas, 3D, selo 18/30 nem o
-     aceite (o "Dar o OK" continua no fim da página, #btn-aceite).
+     aceite (o OK continua no fim da página, #btn-ok-whats).
      ================================================================== */
 
   /* ---------- 1. Guia (topo do painel, antes das medidas) ---------- */
@@ -568,7 +570,7 @@
      - Desktop: `position:sticky` dentro do `.panel` (que é o container que rola).
      - Mobile (≤900): `position:fixed` no rodapé da viewport — o body com
        `overflow:auto` da base quebra o sticky no celular, então aqui é fixo.
-     - `body.cta-a-vista` (IntersectionObserver no "Dar o OK" e no WhatsApp) some
+     - `body.cta-a-vista` (IntersectionObserver no "Enviar meu OK" e no WhatsApp) some
        com o banner quando o CTA final entra na tela: ele nunca cobre o aceite.
      - `pointer-events:none`: informativo, não pode bloquear o arraste do slider.
      Estado controlado por JS (hidden), espelhando orcMedidasBatem(geom()). */
@@ -970,16 +972,19 @@
           </div>
           <div class="orc-card" id="orc-card">
             <div id="orc-offer">
-              <p class="orc-alt">Uma configuração: pinus 18 mm sobre base de ferro soldada. Proposta para aprovação do projeto; qualquer alteração de medida ou espessura reavalia o valor.</p>
+              <p class="orc-alt">Configuração da proposta: pinus 18 mm sobre base de ferro soldada. O tampo de 30 mm fica sob consulta. Proposta para aprovação do projeto; qualquer alteração de medida ou espessura reavalia o valor.</p>
               <div class="orc-opts" id="orc-opts" role="group" aria-label="Alternativa de chapa"></div>
-              <p class="orc-price" id="orc-price">—</p>
+              <p class="orc-price" id="orc-price">-</p>
               <p class="orc-badge" id="orc-badge" hidden>sujeito a confirmação</p>
-              <!-- MOCK do aceite (24/10): só mostra a tela de agradecimento, SEM rede.
-                   O envio real (Telegram) entra depois do parecer do cybersec, com endpoint
-                   no servidor — nenhum token/chat ID pode viver neste HTML. -->
+              <div class="orc-pay" id="orc-pay">
+                <div class="orc-row"><span>Sinal de 50% (Pix)</span><b id="orc-sinal">-</b></div>
+                <div class="orc-row"><span>Saldo na entrega</span><b id="orc-saldo">-</b></div>
+                <div class="orc-row"><span>Total no cartão (÷ 0,965)</span><b id="orc-cartao">-</b></div>
+              </div>
+              <p class="orc-price-sub" id="orc-pay-note">Pix sem acréscimo. Cartão com a taxa da operadora aplicada sobre o total.</p>
               <div class="ok-cta">
-                <button class="btn primary block" id="btn-aceite" type="button">Dar o OK</button>
-                <p>Ao dar o OK, a gente confirma com você os próximos passos. Nada é cobrado agora.</p>
+                <a class="btn primary block" id="btn-ok-whats" href="https://wa.me/5511942713147" target="_blank" rel="noopener noreferrer">Enviar meu OK pelo WhatsApp</a>
+                <p>O botão leva para a conversa da loja com o resumo pronto. O sinal de 50% inicia a produção; a chave Pix vai na conversa.</p>
               </div>
             </div>
             <div class="orc-lock" id="orc-lock" hidden>
@@ -1716,6 +1721,36 @@
     if(!a) return;
     a.href = `https://wa.me/${WHATS_LOJA}?text=${encodeURIComponent(whatsMensagem(g))}`;
   }
+  /* OK do cliente (25/11): sem endpoint e sem token - o botão abre o WhatsApp da
+     loja com o resumo da proposta e o pedido da chave Pix. O registro do aceite
+     continua sendo a conversa da loja (decisão do dono 24/10). */
+  function okWhatsMensagem(g){
+    const o = orcOpcaoAtual();
+    const preco = o ? Number(o.preco) : null;
+    const sinal = o ? Number(o.sinal_pix) : null;
+    const linhas = [
+      "Quero dar o OK na mesa em L (proposta do site).",
+      `Tampo principal: ${g.L1} × ${g.P} mm`,
+      `Tampo do retorno: ${g.L2} × ${g.P2} mm`,
+      `Altura: ${g.H} mm`,
+      `Espessura do tampo: ${T} mm`,
+      `Retorno: ${state.side === "right" ? "direita" : "esquerda"}`,
+      `Acabamento: ${FINISHES[state.finish] || state.finish}`
+    ];
+    if(Number.isFinite(preco) && preco > 0){
+      linhas.push(`Valor: ${brl(preco)} (sujeito a confirmação)`);
+      if(Number.isFinite(sinal) && sinal > 0) linhas.push(`Sinal de 50%: ${brl(sinal)} no Pix`);
+    } else {
+      linhas.push("Valor: a confirmar");
+    }
+    linhas.push("Pode me enviar a chave Pix do sinal?");
+    return linhas.join("\n");
+  }
+  function updateOkWhatsLink(g){
+    const a = $("btn-ok-whats");
+    if(!a) return;
+    a.href = `https://wa.me/${WHATS_LOJA}?text=${encodeURIComponent(okWhatsMensagem(g))}`;
+  }
 
   /* Guia de orçamento (28/10): banner e chip seguem o MESMO cálculo do cartão —
      orcMedidasBatem(geom()). Proposta bate → chip "proposta", sem banner.
@@ -1788,12 +1823,12 @@
   }
   ["input", "change", "click"].forEach((ev) => document.addEventListener(ev, demoInvalidar, true));
 
-  /* O banner fixo não pode cobrir o CTA final: quando o "Dar o OK" (proposta) ou o
+  /* O banner fixo não pode cobrir o CTA final: quando o "Enviar meu OK" (proposta) ou o
      "Falar no WhatsApp" (sob medida) entram na tela, o banner sai de cena. */
   let ctaObserver = null;
   let ultimoBate = null;
   function vigiarCtaFinal(){
-    const alvos = [$("btn-aceite"), $("btn-orc-whats")].filter(Boolean);
+    const alvos = [$("btn-ok-whats"), $("btn-orc-whats")].filter(Boolean);
     if(!alvos.length || typeof IntersectionObserver !== "function") return;
     if(ctaObserver) ctaObserver.disconnect();
     const visiveis = new Set();
@@ -1839,6 +1874,7 @@
     $("orc-date").textContent = data ? `proposta de ${data}` : "";
     $("orc-lock-date").textContent = data || "hoje";
     updateWhatsLink(g);
+    updateOkWhatsLink(g);
 
     const opts = $("orc-opts");
     opts.textContent = "";
@@ -1865,6 +1901,12 @@
 
     $("orc-price").textContent = brl(Number(o.preco));
     $("orc-badge").hidden = ORCAMENTO.auditado_financeiro === true;
+    const preco = Number(o.preco);
+    const sinal = Number(o.sinal_pix);
+    if($("orc-sinal")) $("orc-sinal").textContent = Number.isFinite(sinal) ? brl(sinal) : "-";
+    if($("orc-saldo")) $("orc-saldo").textContent = Number.isFinite(preco) && Number.isFinite(sinal) ? brl(preco - sinal) : "-";
+    if($("orc-cartao")) $("orc-cartao").textContent = Number.isFinite(Number(o.cartao)) ? brl(Number(o.cartao)) : "-";
+    if($("orc-pay-note")) $("orc-pay-note").hidden = !(Number.isFinite(sinal) && sinal > 0);
 
   }
 
@@ -1874,10 +1916,17 @@
     const o = orcOpcaoAtual();
     if(!o) return [];
     const selo = ORCAMENTO.auditado_financeiro === true ? "" : " (sujeito a confirmação)";
-    return [
-      "Proposta para aprovação do projeto — Mesa em L",
-      `Opção ${o.id} — ${o.rotulo || "chapa"}: ${brl(Number(o.preco))}${selo}`
+    const preco = Number(o.preco);
+    const sinal = Number(o.sinal_pix);
+    const linhas = [
+      "Proposta para aprovação do projeto - Mesa em L",
+      `Opção ${o.id} - ${o.rotulo || "chapa"}: ${brl(preco)}${selo}`
     ];
+    if(Number.isFinite(sinal) && sinal > 0){
+      linhas.push(`Sinal de 50%: ${brl(sinal)} no Pix · saldo na entrega: ${brl(preco - sinal)}`);
+    }
+    linhas.push("Tampo de 30 mm: sob consulta.");
+    return linhas;
   }
 
   function baseIdsLabel(){
@@ -2570,69 +2619,14 @@
     toast._timer = setTimeout(() => toastEl.classList.remove("on"), 2200);
   }
 
-  /* ---------------- Aceite do cliente — MOCK (24/10/2026) ----------------
-     Mostra só a tela de agradecimento. NÃO faz fetch, NÃO usa token, NÃO fala
-     com Telegram. O botão só existe dentro de #orc-offer, que o renderBudget
-     esconde quando as medidas fogem da proposta (modo "sob medida").
-     O envio real (endpoint no servidor + parecer do cybersec) entra depois. */
-  const okModalRef = () => document.getElementById("ok-modal");
-  let okReturnFocus = null;
-
-  function okRow(dl, label, value, cls){
-    const row = document.createElement("div");
-    if(cls) row.className = cls;
-    const dt = document.createElement("dt"); dt.textContent = label;
-    const dd = document.createElement("dd"); dd.textContent = value;
-    row.append(dt, dd);
-    dl.appendChild(row);
-  }
-
-  function aceiteLinhas(){
-    const g = geom();
-    const o = orcOpcaoAtual();
-    const linhas = [
-      ["Cliente", inClient.value.trim() || "Ygor"],
-      ["Projeto", inProject.value.trim() || "Mesa em L — escritório"],
-      ["Medidas", `${fmtM(g.L1)}×${fmtM(g.P)} + ${fmtM(g.L2)}×${fmtM(g.P2)} m · h ${fmtM(g.H)} m`],
-      ["Acabamento", FINISHES[state.finish] || "—"],
-      ["Furos de cabo", `principal ${state.hole1Edge} × ${state.hole1Y} mm · retorno ${state.hole2Edge} × ${state.hole2Y} mm`],
-      ["Valor", o ? brl(Number(o.preco)) : "a confirmar"]
-    ];
-    return linhas;
-  }
-
-  function openAceite(){
-    const modal = okModalRef();
-    if(!modal) return;
-    if(!orcMedidasBatem(geom())){ toast("As medidas mudaram — vamos refazer o orçamento."); return; }
-    const dl = $("ok-resumo");
-    if(dl){ dl.textContent = ""; aceiteLinhas().forEach(([k, v]) => okRow(dl, k, v, k === "Valor" ? "ok-row-valor" : "")); }
-    okReturnFocus = document.activeElement;
-    modal.hidden = false;
-    document.body.style.overflow = "hidden";
-    const close = $("ok-close");
-    if(close) close.focus();
-  }
-
-  function closeAceite(){
-    const modal = okModalRef();
-    if(!modal || modal.hidden) return;
-    modal.hidden = true;
-    document.body.style.overflow = "";
-    if(okReturnFocus && typeof okReturnFocus.focus === "function") okReturnFocus.focus();
-    okReturnFocus = null;
-  }
-
-  /* Delegação: o modal vive no fim do <body>, depois deste script, então os
-     elementos são resolvidos na hora do clique (não no parse). */
+  /* Aceite do cliente (25/11/2026): o OK é enviado pelo WhatsApp da loja
+     (#btn-ok-whats) com o resumo pronto. Não há endpoint, token nem registro
+     no navegador — o registro do aceite é a conversa da loja (decisão 24/10). */
   document.addEventListener("click", (e) => {
     const alvo = e.target;
     if(!alvo || !alvo.closest) return;
-    if(alvo.closest("#btn-aceite")){ openAceite(); return; }
-    if(alvo.closest("#ok-close")){ closeAceite(); return; }
     if(alvo.closest("#caixa-abrir")){ fecharCaixaCliente(); return; }
     if(alvo.closest("#btn-demo")){ if(demoRodando) demoVoltar(); else demoIr(); return; }
-    if(alvo.id === "ok-modal") closeAceite();
   });
 
   function setFullMode(on){
@@ -3035,7 +3029,7 @@
 
   /* ---------------- Caixa de boas-vindas da vista de cliente (28/10/2026) ----------------
      Abre SÓ em ?modo=cliente (o link público também chega por ali). NÃO é aceite:
-     "Abrir o projeto" só fecha e libera a página; o aceite continua no #btn-aceite,
+     "Abrir o projeto" só fecha e libera a página; o OK continua no #btn-ok-whats,
      no fim. Esc não fecha (a saída é o botão), Tab fica preso e a página atrás fica
      inert. Sem rede, sem token, sem preço. */
   const CAIXA_KEY = "caostf.mesa-em-l.cliente.caixa.v1";
@@ -3173,27 +3167,10 @@
 })();
 </script>
 <!-- ============================================================
-     Tela de agradecimento do aceite — MOCK (24/10/2026).
-     Não faz requisição, não tem token, não fala com Telegram.
-     O botão #btn-aceite só existe dentro de #orc-offer, que só aparece
-     quando as medidas batem com a proposta (R$ 6.060,26).
-     ============================================================ -->
-<div class="ok-modal" id="ok-modal" hidden>
-  <div class="ok-card" role="dialog" aria-modal="true" aria-labelledby="ok-title" aria-describedby="ok-desc">
-    <div class="ok-check" aria-hidden="true">✓</div>
-    <h2 id="ok-title">Recebemos seu OK!</h2>
-    <p id="ok-desc">Vamos entrar em contato para confirmar os próximos passos.</p>
-    <dl class="ok-resumo" id="ok-resumo"></dl>
-    <button class="btn primary ok-close" id="ok-close" type="button">Ver a mesa de novo</button>
-    <p class="ok-mock" id="ok-mock">versão de demonstração · nada foi enviado ainda</p>
-  </div>
-</div>
-
-<!-- ============================================================
      Caixa de boas-vindas da vista de cliente (28/10/2026).
      Abre SÓ em ?modo=cliente (quem já clicou em "não mostrar" não vê).
-     NÃO é aceite: "Abrir o projeto" só fecha e libera a página; o aceite
-     continua no #btn-aceite, no fim. Sem rede, sem token, sem preço.
+     NÃO é aceite: "Abrir o projeto" só fecha e libera a página; o OK
+     continua no #btn-ok-whats, no fim. Sem rede, sem token, sem preço.
      Copy aprovada pelo dono em 28/10 (preview-caixa-cliente-2026-10-26).
      ============================================================ -->
 <div class="caixa-overlay" id="caixa-overlay" role="dialog" aria-modal="true" aria-labelledby="caixa-titulo" aria-describedby="caixa-apoio" hidden>
@@ -3226,16 +3203,18 @@
   </div>
 </div>
 
-<!-- Bloco de orçamento (marceneiro, 23/10). Inerte: o dev lê e renderiza no modo cliente.
-     Fonte: 10-documentacao/PROJETOS/mesa-em-l/ORCAMENTO-NA-FERRAMENTA.md
-     NAO calcular preco no front: preco vem daqui. Com auditado_financeiro=false,
-     o preco aparece com o selo "sujeito a confirmação" (decisão do Ygor 23/10). -->
+<!-- Bloco de orçamento (marceneiro, 23/10; preço de 25/11). Inerte: o dev lê e
+     renderiza no modo cliente. Fonte: 10-documentacao/PROJETOS/mesa-em-l/
+     ORCAMENTO-INTERNO-2026-11-25.md (custo/margem) + decisão do dono 25/11.
+     NÃO calcular preço no front: preço vem daqui. Com auditado_financeiro=false,
+     o preço aparece com o selo "sujeito a confirmação" (decisão do dono 25/11).
+     O tampo de 30 mm fica sem preço: selecionar 30 mm cai no lock "a confirmar". -->
 <script type="application/json" id="orcamento-cliente">{
   "schema": "orcamento-cliente/1",
   "projeto": "mesa-em-l",
   "modelo": "Mesa em L executiva — base de ferro",
   "cliente": "Ygor",
-  "data": "2026-10-23",
+  "data": "2026-11-25",
   "validade_dias": 7,
   "prazo_dias_uteis": 15,
   "auditado_financeiro": false,
@@ -3251,18 +3230,13 @@
     {
       "id": "A",
       "rotulo": "Ferro + pinus 18 mm",
-      "preco": 6060.26,
-      "sinal_pix": 3030.13,
-      "sinal_cartao": 3140.03,
-      "cartao": 6280.06,
+      "preco": 5000.00,
+      "sinal_pix": 2500.00,
+      "sinal_cartao": 2590.67,
+      "cartao": 5181.35,
       "espessura_mm": 18,
-      "peso_kg": 80,
-      "resumo": "estrutura soldada + base de reforço (4 barras de 6 m)",
-      "estrutura": 2970,
-      "tampos": 1330.26,
-      "acabamento": 1760,
-      "material": 4300.26,
-      "mao_obra": 1760
+      "peso_kg": 78.2,
+      "resumo": "estrutura soldada + base de reforço (4 barras de 6 m)"
     }
   ],
   "inclui": [
