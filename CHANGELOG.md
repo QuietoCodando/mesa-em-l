@@ -2,6 +2,20 @@
 
 Formato: [SemVer](https://semver.org/lang/pt-BR/). Cada release registra bytes e SHA256 do `site/mesa-em-l-cliente.html`.
 
+## [3.4.0] — 2026-11-25 (pronta para publicar; gate do dono)
+
+**Orçamento final para o cliente: 18 mm a R$ 5.000,00, sinal 50%, 30 mm sob consulta.**
+
+- **Arquivo:** `site/mesa-em-l-cliente.html`
+- **Bytes:** 206.104
+- **SHA256:** `F547F96EE56EA38F8391ECE541ACA3444E30DE8B4D319BEB6EDF10341E46C18B`
+- **Preço:** R$ 5.000,00 · sinal Pix R$ 2.500,00 · sinal cartão R$ 2.590,67 · total cartão R$ 5.181,35 (÷ 0,965).
+- **Espessura:** 18 mm travado; 30 mm é opção **sem preço** — selecionar 30 mm cai no lock “Projeto sob medida — orçamento a confirmar”.
+- **Custo/ferragens:** os 5 campos de custo saíram do JSON público; a lista de ferragens e a margem ficam no documento dos sócios (`ORCAMENTO-INTERNO-2026-11-25.md`).
+- **OK do cliente:** o botão “Dar o OK” (mock) virou “Enviar meu OK pelo WhatsApp”, com resumo pronto (medidas, espessura, valor, sinal) e pedido da chave Pix; sem endpoint, token ou registro no navegador.
+- **Selo:** “sujeito a confirmação” visível enquanto `auditado_financeiro:false` (auditoria do `financeiro` em paralelo).
+- **Não mudou:** 3D, medidas, furos, acabamentos, navegação e os links por cliente.
+
 ## [3.3.1] — 2026-11-03 (publicada)
 
 **Correção de base para publicação no repo canônico.** A v3.3.0 foi congelada com `PUBLIC_BASE` apontando para o Pages antigo (`birigjow.github.io/mesa-em-l/`); ao publicar em `quietocodando.github.io/mesa-em-l/`, o botão “Copiar link do cliente” geraria links para o build velho. Esta versão troca a base em `mesa-em-l-cliente.html`, `index.html`, `p/ygor/` e `p/ygor-preco/`.
