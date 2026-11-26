@@ -10,9 +10,7 @@ gh api -X POST repos/QuietoCodando/mesa-em-l/pages -f "build_type=workflow"
 ```
 
 O workflow `.github/workflows/pages.yml` publica a pasta `site/` na URL:
-`https://quietocodando.github.io/mesa-em-l/`
-
-> Ainda **não** existe o workflow no repo — ele entra no PR de publicação junto com o OK do dono.
+`https://quietocodando.github.io/mesa-em-l/` (ativo desde 03/11/2026; run `41688309419`).
 
 ## 2. Conferir o artefato
 

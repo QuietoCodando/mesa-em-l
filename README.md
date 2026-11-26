@@ -36,6 +36,8 @@ visualizadores/                                 config do gerador (chega do repo
 
 GitHub Pages via GitHub Actions (pasta `site/`). O passo a passo, os gates e o domínio próprio estão em `PUBLICAR.md`. **Publicar é gate do dono** — nenhum agente publica sozinho.
 
+**No ar desde 03/11/2026:** `https://quietocodando.github.io/mesa-em-l/` (v3.3.1).
+
 ## O que não entra neste repo
 
 - custo, margem, markup, RFQ e qualquer número interno;
